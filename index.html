@@ -1,14 +1,243 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clipo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clipo - Sosyal Sohbet</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #0b0f17;
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    border-bottom: 1px solid #202938;
+    background: #0e131d;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: #6c63ff;
+}
+
+.login {
+    color: white;
+    text-decoration: none;
+    border: 1px solid #30394a;
+    padding: 10px 17px;
+    border-radius: 10px;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px 45px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero h1 span {
+    color: #6c63ff;
+}
+
+.hero p {
+    color: #9ba6b8;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.main-button {
+    display: inline-block;
+    background: #6c63ff;
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.main-button:hover {
+    opacity: 0.9;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    background: #111722;
+    border: 1px solid #242e3e;
+    padding: 18px 28px;
+    border-radius: 14px;
+    text-align: center;
+    min-width: 140px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.stat small {
+    color: #8995a8;
+}
+
+.chat-box {
+    max-width: 650px;
+    margin: 35px auto 60px;
+    padding: 25px;
+    background: #111722;
+    border: 1px solid #242e3e;
+    border-radius: 18px;
+}
+
+.chat-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.online {
+    color: #40d17c;
+    font-size: 14px;
+}
+
+.message {
+    background: #182130;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.message b {
+    color: #8f87ff;
+}
+
+.message p {
+    color: #c7cfdb;
+    margin-top: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    border-top: 1px solid #202938;
+    color: #6f7b8d;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding-top: 60px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    header {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 26px;
+    }
+
+    .chat-box {
+        margin: 25px 15px 45px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <h1>Clipo</h1>
-    <p>Sosyal sohbet platformu</p>
+<header>
+    <div class="logo">Cli<span>po</span></div>
+    <a href="#" class="login">Giriş Yap</a>
+</header>
+
+<section class="hero">
+    <h1>Clipo'ya <span>Hoş Geldin</span></h1>
+    <p>Yeni insanlarla tanış, sohbet et ve Clipo topluluğuna katıl.</p>
+
+    <a href="#" class="main-button">💬 Sohbete Katıl</a>
+</section>
+
+<section class="stats">
+
+    <div class="stat">
+        <strong>🟢 1</strong>
+        <small>Çevrimiçi</small>
+    </div>
+
+    <div class="stat">
+        <strong>👥 0</strong>
+        <small>Üye</small>
+    </div>
+
+    <div class="stat">
+        <strong>💬 0</strong>
+        <small>Mesaj</small>
+    </div>
+
+</section>
+
+<div class="chat-box">
+
+    <div class="chat-title">
+        <h2>🌐 Genel Sohbet</h2>
+        <span class="online">● Çevrimiçi</span>
+    </div>
+
+    <div class="message">
+        <b>Clipo</b>
+        <p>Clipo'ya hoş geldin! İlk mesajı sen gönder. 🚀</p>
+    </div>
+
+    <div class="message">
+        <b>Sistem</b>
+        <p>Yakında gerçek zamanlı sohbet başlayacak.</p>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Clipo — Sosyal Sohbet Platformu
+</footer>
 
 </body>
-</html>
+</html>p
