@@ -1,244 +1,584 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clipo - Sosyal Sohbet</title>
+
+<title>Clipo - Sosyal Video & Sohbet</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-body {
-    background: #0b0f17;
-    color: white;
-    min-height: 100vh;
+body{
+    background:#050505;
+    color:white;
+    min-height:100vh;
 }
 
-header {
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 22px;
-    border-bottom: 1px solid #202938;
-    background: #0e131d;
+.app{
+    max-width:500px;
+    margin:auto;
+    min-height:100vh;
+    background:#0b0b0b;
+    position:relative;
 }
 
-.logo {
-    font-size: 30px;
-    font-weight: bold;
-    color: #ffffff;
-    letter-spacing: 1px;
+/* ÜST BAR */
+
+.topbar{
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    border-bottom:1px solid #222;
+    position:sticky;
+    top:0;
+    background:#090909;
+    z-index:10;
 }
 
-.logo span {
-    color: #6c63ff;
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    letter-spacing:-2px;
 }
 
-.login {
-    color: white;
-    text-decoration: none;
-    border: 1px solid #30394a;
-    padding: 10px 17px;
-    border-radius: 10px;
+.logo span{
+    color:#ff1744;
 }
 
-.hero {
-    text-align: center;
-    padding: 80px 20px 45px;
+.top-icons{
+    display:flex;
+    gap:18px;
+    font-size:23px;
 }
 
-.hero h1 {
-    font-size: 48px;
-    margin-bottom: 15px;
+.icon{
+    cursor:pointer;
 }
 
-.hero h1 span {
-    color: #6c63ff;
+/* HİKAYELER */
+
+.stories{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    padding:15px;
+    border-bottom:1px solid #222;
 }
 
-.hero p {
-    color: #9ba6b8;
-    font-size: 18px;
-    margin-bottom: 30px;
+.stories::-webkit-scrollbar{
+    display:none;
 }
 
-.main-button {
-    display: inline-block;
-    background: #6c63ff;
-    color: white;
-    text-decoration: none;
-    padding: 15px 30px;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: bold;
+.story{
+    min-width:62px;
+    text-align:center;
+    font-size:11px;
 }
 
-.main-button:hover {
-    opacity: 0.9;
+.story-img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    margin:auto;
+    border:2px solid #ff1744;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    background:#181818;
 }
 
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    padding: 20px;
-    flex-wrap: wrap;
+/* VİDEO */
+
+.feed{
+    padding-bottom:90px;
 }
 
-.stat {
-    background: #111722;
-    border: 1px solid #242e3e;
-    padding: 18px 28px;
-    border-radius: 14px;
-    text-align: center;
-    min-width: 140px;
+.post{
+    margin-bottom:20px;
+    background:#111;
+    border-bottom:1px solid #252525;
 }
 
-.stat strong {
-    display: block;
-    font-size: 22px;
-    margin-bottom: 5px;
+.post-header{
+    height:55px;
+    display:flex;
+    align-items:center;
+    padding:8px 14px;
+    gap:10px;
 }
 
-.stat small {
-    color: #8995a8;
+.avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#333;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.chat-box {
-    max-width: 650px;
-    margin: 35px auto 60px;
-    padding: 25px;
-    background: #111722;
-    border: 1px solid #242e3e;
-    border-radius: 18px;
+.username{
+    font-weight:bold;
 }
 
-.chat-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.video{
+    height:520px;
+    background:linear-gradient(135deg,#241025,#071c2c);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:80px;
 }
 
-.online {
-    color: #40d17c;
-    font-size: 14px;
+.actions{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:12px 15px 5px;
 }
 
-.message {
-    background: #182130;
-    padding: 14px;
-    border-radius: 12px;
-    margin-bottom: 10px;
+.action{
+    font-size:25px;
+    cursor:pointer;
 }
 
-.message b {
-    color: #8f87ff;
+.like.active{
+    color:#ff1744;
 }
 
-.message p {
-    color: #c7cfdb;
-    margin-top: 5px;
+.likes{
+    padding:5px 15px;
+    font-weight:bold;
 }
 
-footer {
-    text-align: center;
-    padding: 25px;
-    border-top: 1px solid #202938;
-    color: #6f7b8d;
-    font-size: 14px;
+.caption{
+    padding:5px 15px 15px;
+    color:#ddd;
 }
 
-@media (max-width: 600px) {
-    .hero {
-        padding-top: 60px;
-    }
+/* ALT MENÜ */
 
-    .hero h1 {
-        font-size: 38px;
-    }
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:500px;
+    height:70px;
+    background:#090909;
+    border-top:1px solid #292929;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    z-index:20;
+}
 
-    .hero p {
-        font-size: 16px;
-    }
+.nav-item{
+    text-align:center;
+    font-size:12px;
+    color:#aaa;
+    cursor:pointer;
+}
 
-    header {
-        padding: 0 15px;
-    }
+.nav-item.active{
+    color:white;
+}
 
-    .logo {
-        font-size: 26px;
-    }
+.nav-icon{
+    font-size:24px;
+    display:block;
+    margin-bottom:3px;
+}
 
-    .chat-box {
-        margin: 25px 15px 45px;
-    }
+.add{
+    width:52px;
+    height:42px;
+    background:white;
+    color:#000;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+}
+
+/* GİRİŞ PENCERESİ */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.login-box{
+    width:100%;
+    max-width:380px;
+    background:#151515;
+    border-radius:20px;
+    padding:25px;
+}
+
+.login-box h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.input{
+    width:100%;
+    height:48px;
+    margin-bottom:12px;
+    border:1px solid #333;
+    background:#0b0b0b;
+    color:white;
+    border-radius:10px;
+    padding:0 14px;
+}
+
+.login-btn{
+    width:100%;
+    height:48px;
+    border:0;
+    border-radius:10px;
+    background:#ff1744;
+    color:white;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.close{
+    text-align:right;
+    font-size:25px;
+    cursor:pointer;
+    margin-bottom:10px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    <div class="logo">Cli<span>po</span></div>
-    <a href="#" class="login">Giriş Yap</a>
-</header>
+<div class="app">
 
-<section class="hero">
-    <h1>Clipo'ya <span>Hoş Geldin</span></h1>
-    <p>Yeni insanlarla tanış, sohbet et ve Clipo topluluğuna katıl.</p>
+    <!-- ÜST BAR -->
 
-    <a href="#chat" class="main-button">💬 Sohbete Katıl</a>
-</section>
+    <div class="topbar">
 
-<section class="stats">
+        <div class="logo">
+            Cli<span>po</span>
+        </div>
 
-    <div class="stat">
-        <strong>🟢 1</strong>
-        <small>Çevrimiçi</small>
+        <div class="top-icons">
+            <div class="icon" onclick="openLogin()">🔔</div>
+            <div class="icon" onclick="openLogin()">💬</div>
+        </div>
+
     </div>
 
-    <div class="stat">
-        <strong>👥 0</strong>
-        <small>Üye</small>
+
+    <!-- HİKAYELER -->
+
+    <div class="stories">
+
+        <div class="story">
+            <div class="story-img">➕</div>
+            Sen
+        </div>
+
+        <div class="story">
+            <div class="story-img">😎</div>
+            Esat
+        </div>
+
+        <div class="story">
+            <div class="story-img">👩</div>
+            Ayşe
+        </div>
+
+        <div class="story">
+            <div class="story-img">🧔</div>
+            Mehmet
+        </div>
+
+        <div class="story">
+            <div class="story-img">👨</div>
+            Can
+        </div>
+
     </div>
 
-    <div class="stat">
-        <strong>💬 0</strong>
-        <small>Mesaj</small>
-    </div>
 
-</section>
+    <!-- VİDEO AKIŞI -->
 
-<div class="chat-box" id="chat">
+    <main class="feed">
 
-    <div class="chat-title">
-        <h2>🌐 Genel Sohbet</h2>
-        <span class="online">● Çevrimiçi</span>
-    </div>
+        <div class="post">
 
-    <div class="message">
-        <b>Clipo</b>
-        <p>Clipo'ya hoş geldin! İlk mesajı sen gönder. 🚀</p>
-    </div>
+            <div class="post-header">
 
-    <div class="message">
-        <b>Sistem</b>
-        <p>Yakında gerçek zamanlı sohbet başlayacak.</p>
+                <div class="avatar">😎</div>
+
+                <div>
+                    <div class="username">@clipo</div>
+                    <small>Ankara</small>
+                </div>
+
+            </div>
+
+            <div class="video">
+                🎬
+            </div>
+
+            <div class="actions">
+
+                <div class="action like" onclick="likePost(this)">
+                    ❤️
+                </div>
+
+                <div class="action" onclick="openLogin()">
+                    💬
+                </div>
+
+                <div class="action">
+                    ↗️
+                </div>
+
+                <div class="action" style="margin-left:auto">
+                    🔖
+                </div>
+
+            </div>
+
+            <div class="likes">
+                <span class="like-count">124</span> beğeni
+            </div>
+
+            <div class="caption">
+                <b>@clipo</b>
+                Clipo'ya hoş geldin! 🎉
+                <br>
+                Kısa videolarını paylaş, yeni insanlarla tanış.
+            </div>
+
+        </div>
+
+
+        <div class="post">
+
+            <div class="post-header">
+
+                <div class="avatar">🔥</div>
+
+                <div>
+                    <div class="username">@ankara</div>
+                    <small>İvedik</small>
+                </div>
+
+            </div>
+
+            <div class="video">
+                🔥
+            </div>
+
+            <div class="actions">
+
+                <div class="action like" onclick="likePost(this)">
+                    ❤️
+                </div>
+
+                <div class="action" onclick="openLogin()">
+                    💬
+                </div>
+
+                <div class="action">
+                    ↗️
+                </div>
+
+                <div class="action" style="margin-left:auto">
+                    🔖
+                </div>
+
+            </div>
+
+            <div class="likes">
+                <span class="like-count">89</span> beğeni
+            </div>
+
+            <div class="caption">
+                <b>@ankara</b>
+                Ankara'dan selamlar 👋
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ALT MENÜ -->
+
+    <nav class="bottom-nav">
+
+        <div class="nav-item active" onclick="goHome()">
+            <span class="nav-icon">🏠</span>
+            Ana Sayfa
+        </div>
+
+        <div class="nav-item" onclick="openLogin()">
+            <span class="nav-icon">🔎</span>
+            Keşfet
+        </div>
+
+        <div class="add" onclick="openLogin()">
+            +
+        </div>
+
+        <div class="nav-item" onclick="openLogin()">
+            <span class="nav-icon">💬</span>
+            Sohbet
+        </div>
+
+        <div class="nav-item" onclick="openLogin()">
+            <span class="nav-icon">👤</span>
+            Profil
+        </div>
+
+    </nav>
+
+</div>
+
+
+<!-- GİRİŞ PENCERESİ -->
+
+<div class="modal" id="loginModal">
+
+    <div class="login-box">
+
+        <div class="close" onclick="closeLogin()">
+            ×
+        </div>
+
+        <h2>Clipo'ya Giriş Yap</h2>
+
+        <input
+            class="input"
+            type="email"
+            placeholder="E-posta"
+            id="email"
+        >
+
+        <input
+            class="input"
+            type="password"
+            placeholder="Şifre"
+            id="password"
+        >
+
+        <button class="login-btn" onclick="login()">
+            Giriş Yap
+        </button>
+
+        <p style="text-align:center;margin-top:15px;color:#aaa;">
+            Hesabın yok mu?
+            <span style="color:#ff1744;cursor:pointer;">
+                Kayıt Ol
+            </span>
+        </p>
+
     </div>
 
 </div>
 
-<footer>
-    © 2026 Clipo — Sosyal Sohbet Platformu
-</footer>
+
+<script>
+
+function openLogin(){
+
+    document.getElementById("loginModal")
+    .classList.add("show");
+
+}
+
+function closeLogin(){
+
+    document.getElementById("loginModal")
+    .classList.remove("show");
+
+}
+
+function likePost(button){
+
+    button.classList.toggle("active");
+
+    const post = button.closest(".post");
+
+    const count =
+        post.querySelector(".like-count");
+
+    let number =
+        parseInt(count.innerText);
+
+    if(button.classList.contains("active")){
+
+        number++;
+
+    }else{
+
+        number--;
+
+    }
+
+    count.innerText = number;
+
+}
+
+function login(){
+
+    const email =
+        document.getElementById("email").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    if(!email || !password){
+
+        alert("E-posta ve şifre gir!");
+
+        return;
+
+    }
+
+    alert("Clipo giriş sistemi Firebase'e bağlanacak.");
+
+}
+
+function goHome(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+</script>
 
 </body>
 </html>
