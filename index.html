@@ -2,33 +2,23 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Clipo - Sosyal Video & Sohbet</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 
 body{
     background:#050505;
     color:white;
-    min-height:100vh;
 }
 
 .app{
     max-width:500px;
-    margin:auto;
     min-height:100vh;
+    margin:auto;
     background:#0b0b0b;
-    position:relative;
 }
-
-/* ÜST BAR */
 
 .topbar{
     height:65px;
@@ -46,24 +36,17 @@ body{
 .logo{
     font-size:30px;
     font-weight:bold;
-    letter-spacing:-2px;
 }
 
 .logo span{
     color:#ff1744;
 }
 
-.top-icons{
+.icons{
     display:flex;
     gap:18px;
-    font-size:23px;
+    font-size:22px;
 }
-
-.icon{
-    cursor:pointer;
-}
-
-/* HİKAYELER */
 
 .stories{
     display:flex;
@@ -71,10 +54,6 @@ body{
     overflow-x:auto;
     padding:15px;
     border-bottom:1px solid #222;
-}
-
-.stories::-webkit-scrollbar{
-    display:none;
 }
 
 .story{
@@ -87,33 +66,27 @@ body{
     width:55px;
     height:55px;
     border-radius:50%;
-    margin:auto;
     border:2px solid #ff1744;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:24px;
+    margin:auto;
     background:#181818;
-}
-
-/* VİDEO */
-
-.feed{
-    padding-bottom:90px;
+    font-size:23px;
 }
 
 .post{
-    margin-bottom:20px;
     background:#111;
     border-bottom:1px solid #252525;
+    margin-bottom:20px;
 }
 
 .post-header{
     height:55px;
     display:flex;
     align-items:center;
-    padding:8px 14px;
     gap:10px;
+    padding:8px 14px;
 }
 
 .avatar{
@@ -126,12 +99,8 @@ body{
     justify-content:center;
 }
 
-.username{
-    font-weight:bold;
-}
-
 .video{
-    height:520px;
+    height:500px;
     background:linear-gradient(135deg,#241025,#071c2c);
     display:flex;
     align-items:center;
@@ -141,7 +110,6 @@ body{
 
 .actions{
     display:flex;
-    align-items:center;
     gap:20px;
     padding:12px 15px 5px;
 }
@@ -165,9 +133,7 @@ body{
     color:#ddd;
 }
 
-/* ALT MENÜ */
-
-.bottom-nav{
+.bottom{
     position:fixed;
     bottom:0;
     left:50%;
@@ -178,25 +144,21 @@ body{
     background:#090909;
     border-top:1px solid #292929;
     display:flex;
-    align-items:center;
     justify-content:space-around;
+    align-items:center;
     z-index:20;
 }
 
-.nav-item{
+.nav{
     text-align:center;
-    font-size:12px;
     color:#aaa;
+    font-size:12px;
     cursor:pointer;
 }
 
-.nav-item.active{
-    color:white;
-}
-
 .nav-icon{
-    font-size:24px;
     display:block;
+    font-size:23px;
     margin-bottom:3px;
 }
 
@@ -204,21 +166,20 @@ body{
     width:52px;
     height:42px;
     background:white;
-    color:#000;
-    border-radius:13px;
+    color:black;
+    border-radius:12px;
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:30px;
+    cursor:pointer;
 }
-
-/* GİRİŞ PENCERESİ */
 
 .modal{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.85);
+    background:rgba(0,0,0,.88);
     z-index:100;
     align-items:center;
     justify-content:center;
@@ -229,7 +190,7 @@ body{
     display:flex;
 }
 
-.login-box{
+.box{
     width:100%;
     max-width:380px;
     background:#151515;
@@ -237,39 +198,50 @@ body{
     padding:25px;
 }
 
-.login-box h2{
+.close{
+    text-align:right;
+    font-size:26px;
+    cursor:pointer;
+}
+
+.box h2{
     text-align:center;
-    margin-bottom:20px;
+    margin:10px 0 20px;
 }
 
 .input{
     width:100%;
     height:48px;
     margin-bottom:12px;
-    border:1px solid #333;
-    background:#0b0b0b;
-    color:white;
-    border-radius:10px;
     padding:0 14px;
+    background:#090909;
+    color:white;
+    border:1px solid #333;
+    border-radius:10px;
 }
 
-.login-btn{
+.btn{
     width:100%;
     height:48px;
     border:0;
     border-radius:10px;
     background:#ff1744;
     color:white;
-    font-weight:bold;
     font-size:16px;
-    cursor:pointer;
-}
-
-.close{
-    text-align:right;
-    font-size:25px;
+    font-weight:bold;
     cursor:pointer;
     margin-bottom:10px;
+}
+
+.btn.secondary{
+    background:#333;
+}
+
+.message{
+    text-align:center;
+    margin-top:10px;
+    color:#aaa;
+    font-size:13px;
 }
 </style>
 </head>
@@ -278,262 +250,369 @@ body{
 
 <div class="app">
 
-    <!-- ÜST BAR -->
+<header class="topbar">
+    <div class="logo">Cli<span>po</span></div>
 
-    <div class="topbar">
+    <div class="icons">
+        <span onclick="openLogin()">🔔</span>
+        <span onclick="openLogin()">💬</span>
+    </div>
+</header>
 
-        <div class="logo">
-            Cli<span>po</span>
-        </div>
+<div class="stories">
 
-        <div class="top-icons">
-            <div class="icon" onclick="openLogin()">🔔</div>
-            <div class="icon" onclick="openLogin()">💬</div>
-        </div>
-
+    <div class="story">
+        <div class="story-img">➕</div>
+        Sen
     </div>
 
-
-    <!-- HİKAYELER -->
-
-    <div class="stories">
-
-        <div class="story">
-            <div class="story-img">➕</div>
-            Sen
-        </div>
-
-        <div class="story">
-            <div class="story-img">😎</div>
-            Esat
-        </div>
-
-        <div class="story">
-            <div class="story-img">👩</div>
-            Ayşe
-        </div>
-
-        <div class="story">
-            <div class="story-img">🧔</div>
-            Mehmet
-        </div>
-
-        <div class="story">
-            <div class="story-img">👨</div>
-            Can
-        </div>
-
+    <div class="story">
+        <div class="story-img">😎</div>
+        Esat
     </div>
 
+    <div class="story">
+        <div class="story-img">👩</div>
+        Ayşe
+    </div>
 
-    <!-- VİDEO AKIŞI -->
-
-    <main class="feed">
-
-        <div class="post">
-
-            <div class="post-header">
-
-                <div class="avatar">😎</div>
-
-                <div>
-                    <div class="username">@clipo</div>
-                    <small>Ankara</small>
-                </div>
-
-            </div>
-
-            <div class="video">
-                🎬
-            </div>
-
-            <div class="actions">
-
-                <div class="action like" onclick="likePost(this)">
-                    ❤️
-                </div>
-
-                <div class="action" onclick="openLogin()">
-                    💬
-                </div>
-
-                <div class="action">
-                    ↗️
-                </div>
-
-                <div class="action" style="margin-left:auto">
-                    🔖
-                </div>
-
-            </div>
-
-            <div class="likes">
-                <span class="like-count">124</span> beğeni
-            </div>
-
-            <div class="caption">
-                <b>@clipo</b>
-                Clipo'ya hoş geldin! 🎉
-                <br>
-                Kısa videolarını paylaş, yeni insanlarla tanış.
-            </div>
-
-        </div>
-
-
-        <div class="post">
-
-            <div class="post-header">
-
-                <div class="avatar">🔥</div>
-
-                <div>
-                    <div class="username">@ankara</div>
-                    <small>İvedik</small>
-                </div>
-
-            </div>
-
-            <div class="video">
-                🔥
-            </div>
-
-            <div class="actions">
-
-                <div class="action like" onclick="likePost(this)">
-                    ❤️
-                </div>
-
-                <div class="action" onclick="openLogin()">
-                    💬
-                </div>
-
-                <div class="action">
-                    ↗️
-                </div>
-
-                <div class="action" style="margin-left:auto">
-                    🔖
-                </div>
-
-            </div>
-
-            <div class="likes">
-                <span class="like-count">89</span> beğeni
-            </div>
-
-            <div class="caption">
-                <b>@ankara</b>
-                Ankara'dan selamlar 👋
-            </div>
-
-        </div>
-
-    </main>
-
-
-    <!-- ALT MENÜ -->
-
-    <nav class="bottom-nav">
-
-        <div class="nav-item active" onclick="goHome()">
-            <span class="nav-icon">🏠</span>
-            Ana Sayfa
-        </div>
-
-        <div class="nav-item" onclick="openLogin()">
-            <span class="nav-icon">🔎</span>
-            Keşfet
-        </div>
-
-        <div class="add" onclick="openLogin()">
-            +
-        </div>
-
-        <div class="nav-item" onclick="openLogin()">
-            <span class="nav-icon">💬</span>
-            Sohbet
-        </div>
-
-        <div class="nav-item" onclick="openLogin()">
-            <span class="nav-icon">👤</span>
-            Profil
-        </div>
-
-    </nav>
+    <div class="story">
+        <div class="story-img">🧔</div>
+        Mehmet
+    </div>
 
 </div>
 
+<main style="padding-bottom:90px">
 
-<!-- GİRİŞ PENCERESİ -->
+<div class="post">
+
+    <div class="post-header">
+        <div class="avatar">😎</div>
+        <div>
+            <b>@clipo</b>
+            <br>
+            <small>Ankara</small>
+        </div>
+    </div>
+
+    <div class="video">🎬</div>
+
+    <div class="actions">
+
+        <span class="action like" onclick="likePost(this)">
+            ❤️
+        </span>
+
+        <span class="action" onclick="openLogin()">
+            💬
+        </span>
+
+        <span class="action">
+            ↗️
+        </span>
+
+        <span class="action" style="margin-left:auto">
+            🔖
+        </span>
+
+    </div>
+
+    <div class="likes">
+        <span class="like-count">124</span> beğeni
+    </div>
+
+    <div class="caption">
+        <b>@clipo</b>
+        Clipo'ya hoş geldin! 🎉
+        <br>
+        Videolarını paylaş, yeni insanlarla tanış.
+    </div>
+
+</div>
+
+<div class="post">
+
+    <div class="post-header">
+        <div class="avatar">🔥</div>
+        <div>
+            <b>@ankara</b>
+            <br>
+            <small>İvedik</small>
+        </div>
+    </div>
+
+    <div class="video">🔥</div>
+
+    <div class="actions">
+
+        <span class="action like" onclick="likePost(this)">
+            ❤️
+        </span>
+
+        <span class="action" onclick="openLogin()">
+            💬
+        </span>
+
+        <span class="action">
+            ↗️
+        </span>
+
+        <span class="action" style="margin-left:auto">
+            🔖
+        </span>
+
+    </div>
+
+    <div class="likes">
+        <span class="like-count">89</span> beğeni
+    </div>
+
+    <div class="caption">
+        <b>@ankara</b>
+        Ankara'dan selamlar 👋
+    </div>
+
+</div>
+
+</main>
+
+<nav class="bottom">
+
+    <div class="nav">
+        <span class="nav-icon">🏠</span>
+        Ana Sayfa
+    </div>
+
+    <div class="nav" onclick="openLogin()">
+        <span class="nav-icon">🔎</span>
+        Keşfet
+    </div>
+
+    <div class="add" onclick="openLogin()">+</div>
+
+    <div class="nav" onclick="openLogin()">
+        <span class="nav-icon">💬</span>
+        Sohbet
+    </div>
+
+    <div class="nav" onclick="openLogin()">
+        <span class="nav-icon">👤</span>
+        Profil
+    </div>
+
+</nav>
+
+</div>
+
+<!-- GİRİŞ / KAYIT -->
 
 <div class="modal" id="loginModal">
 
-    <div class="login-box">
+<div class="box">
 
-        <div class="close" onclick="closeLogin()">
-            ×
-        </div>
+<div class="close" onclick="closeLogin()">×</div>
 
-        <h2>Clipo'ya Giriş Yap</h2>
+<h2 id="formTitle">Clipo'ya Giriş Yap</h2>
 
-        <input
-            class="input"
-            type="email"
-            placeholder="E-posta"
-            id="email"
-        >
+<input
+    class="input"
+    id="email"
+    type="email"
+    placeholder="E-posta"
+>
 
-        <input
-            class="input"
-            type="password"
-            placeholder="Şifre"
-            id="password"
-        >
+<input
+    class="input"
+    id="password"
+    type="password"
+    placeholder="Şifre"
+>
 
-        <button class="login-btn" onclick="login()">
-            Giriş Yap
-        </button>
+<button class="btn" onclick="loginUser()">
+    Giriş Yap
+</button>
 
-        <p style="text-align:center;margin-top:15px;color:#aaa;">
-            Hesabın yok mu?
-            <span style="color:#ff1744;cursor:pointer;">
-                Kayıt Ol
-            </span>
-        </p>
+<button class="btn secondary" onclick="registerUser()">
+    Kayıt Ol
+</button>
 
-    </div>
+<div class="message" id="message"></div>
 
 </div>
+
+</div>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyDys5NqKqRt2GFcDBUnE1PGXXOC3ap8Asw",
+
+    authDomain: "cripo-e7483.firebaseapp.com",
+
+    projectId: "cripo-e7483",
+
+    storageBucket: "cripo-e7483.firebasestorage.app",
+
+    messagingSenderId: "687926578600",
+
+    appId: "1:687926578600:web:a1bc8b8740d9d153a4e19d",
+
+    measurementId: "G-M4BYQYDYYX"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+window.loginUser = async function(){
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const message =
+        document.getElementById("message");
+
+
+    if(!email || !password){
+
+        message.innerText =
+            "E-posta ve şifre gerekli.";
+
+        return;
+    }
+
+
+    try{
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        message.innerText =
+            "✅ Clipo'ya giriş yapıldı!";
+
+        setTimeout(closeLogin,1000);
+
+    }catch(error){
+
+        message.innerText =
+            "❌ Giriş başarısız: " + error.message;
+
+    }
+
+};
+
+
+window.registerUser = async function(){
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const message =
+        document.getElementById("message");
+
+
+    if(!email || !password){
+
+        message.innerText =
+            "E-posta ve şifre gerekli.";
+
+        return;
+    }
+
+
+    if(password.length < 6){
+
+        message.innerText =
+            "Şifre en az 6 karakter olmalı.";
+
+        return;
+    }
+
+
+    try{
+
+        await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        message.innerText =
+            "🎉 Clipo hesabın oluşturuldu!";
+
+    }catch(error){
+
+        message.innerText =
+            "❌ Kayıt başarısız: " + error.message;
+
+    }
+
+};
+
+</script>
 
 
 <script>
 
 function openLogin(){
 
-    document.getElementById("loginModal")
+    document
+    .getElementById("loginModal")
     .classList.add("show");
 
 }
 
+
 function closeLogin(){
 
-    document.getElementById("loginModal")
+    document
+    .getElementById("loginModal")
     .classList.remove("show");
 
 }
+
 
 function likePost(button){
 
     button.classList.toggle("active");
 
-    const post = button.closest(".post");
+    const post =
+        button.closest(".post");
 
     const count =
         post.querySelector(".like-count");
 
     let number =
         parseInt(count.innerText);
+
 
     if(button.classList.contains("active")){
 
@@ -545,36 +624,8 @@ function likePost(button){
 
     }
 
+
     count.innerText = number;
-
-}
-
-function login(){
-
-    const email =
-        document.getElementById("email").value;
-
-    const password =
-        document.getElementById("password").value;
-
-    if(!email || !password){
-
-        alert("E-posta ve şifre gir!");
-
-        return;
-
-    }
-
-    alert("Clipo giriş sistemi Firebase'e bağlanacak.");
-
-}
-
-function goHome(){
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
 
 }
 
