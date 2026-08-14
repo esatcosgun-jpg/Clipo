@@ -6,7 +6,12 @@
 <title>Clipo - Sosyal Video & Sohbet</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
 
 body{
     background:#050505;
@@ -237,11 +242,38 @@ body{
     background:#333;
 }
 
+.btn.logout{
+    background:#ff1744;
+}
+
 .message{
     text-align:center;
     margin-top:10px;
     color:#aaa;
     font-size:13px;
+}
+
+.profile-info{
+    text-align:center;
+    padding:10px 0 20px;
+}
+
+.profile-avatar{
+    width:80px;
+    height:80px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    background:#333;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+}
+
+.profile-email{
+    color:#ccc;
+    font-size:14px;
+    word-break:break-all;
 }
 </style>
 </head>
@@ -251,17 +283,22 @@ body{
 <div class="app">
 
 <header class="topbar">
-    <div class="logo">Cli<span>po</span></div>
+
+    <div class="logo">
+        Cli<span>po</span>
+    </div>
 
     <div class="icons">
-        <span onclick="openLogin()">🔔</span>
-        <span onclick="openLogin()">💬</span>
+        <span onclick="openProtected()">🔔</span>
+        <span onclick="openProtected()">💬</span>
     </div>
+
 </header>
+
 
 <div class="stories">
 
-    <div class="story">
+    <div class="story" onclick="openProtected()">
         <div class="story-img">➕</div>
         Sen
     </div>
@@ -283,12 +320,14 @@ body{
 
 </div>
 
+
 <main style="padding-bottom:90px">
 
 <div class="post">
 
     <div class="post-header">
         <div class="avatar">😎</div>
+
         <div>
             <b>@clipo</b>
             <br>
@@ -304,7 +343,7 @@ body{
             ❤️
         </span>
 
-        <span class="action" onclick="openLogin()">
+        <span class="action" onclick="openProtected()">
             💬
         </span>
 
@@ -331,15 +370,19 @@ body{
 
 </div>
 
+
 <div class="post">
 
     <div class="post-header">
+
         <div class="avatar">🔥</div>
+
         <div>
             <b>@ankara</b>
             <br>
             <small>İvedik</small>
         </div>
+
     </div>
 
     <div class="video">🔥</div>
@@ -350,7 +393,7 @@ body{
             ❤️
         </span>
 
-        <span class="action" onclick="openLogin()">
+        <span class="action" onclick="openProtected()">
             💬
         </span>
 
@@ -377,6 +420,7 @@ body{
 
 </main>
 
+
 <nav class="bottom">
 
     <div class="nav">
@@ -384,19 +428,21 @@ body{
         Ana Sayfa
     </div>
 
-    <div class="nav" onclick="openLogin()">
+    <div class="nav" onclick="openProtected()">
         <span class="nav-icon">🔎</span>
         Keşfet
     </div>
 
-    <div class="add" onclick="openLogin()">+</div>
+    <div class="add" onclick="openProtected()">
+        +
+    </div>
 
-    <div class="nav" onclick="openLogin()">
+    <div class="nav" onclick="openProtected()">
         <span class="nav-icon">💬</span>
         Sohbet
     </div>
 
-    <div class="nav" onclick="openLogin()">
+    <div class="nav" onclick="openProfileOrLogin()">
         <span class="nav-icon">👤</span>
         Profil
     </div>
@@ -405,7 +451,8 @@ body{
 
 </div>
 
-<!-- GİRİŞ / KAYIT -->
+
+<!-- GİRİŞ -->
 
 <div class="modal" id="loginModal">
 
@@ -413,7 +460,7 @@ body{
 
 <div class="close" onclick="closeLogin()">×</div>
 
-<h2 id="formTitle">Clipo'ya Giriş Yap</h2>
+<h2>Clipo'ya Giriş Yap</h2>
 
 <input
     class="input"
@@ -444,7 +491,42 @@ body{
 </div>
 
 
-<!-- FIREBASE -->
+<!-- PROFİL -->
+
+<div class="modal" id="profileModal">
+
+<div class="box">
+
+<div class="close" onclick="closeProfile()">×</div>
+
+<h2>Profilim</h2>
+
+<div class="profile-info">
+
+    <div class="profile-avatar">
+        👤
+    </div>
+
+    <h3 id="profileName">
+        Clipo Kullanıcısı
+    </h3>
+
+    <br>
+
+    <div class="profile-email" id="profileEmail">
+        -
+    </div>
+
+</div>
+
+<button class="btn logout" onclick="logoutUser()">
+    🚪 Çıkış Yap
+</button>
+
+</div>
+
+</div>
+
 
 <script type="module">
 
@@ -454,7 +536,9 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
     getAuth,
     signInWithEmailAndPassword,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -482,6 +566,43 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
+
+/* KULLANICI DURUMU */
+
+onAuthStateChanged(auth, function(user){
+
+    if(user){
+
+        console.log("Clipo kullanıcısı giriş yaptı:", user.email);
+
+        const profileEmail =
+            document.getElementById("profileEmail");
+
+        if(profileEmail){
+
+            profileEmail.innerText =
+                user.email;
+        }
+
+        const profileName =
+            document.getElementById("profileName");
+
+        if(profileName){
+
+            profileName.innerText =
+                user.email.split("@")[0];
+        }
+
+    }else{
+
+        console.log("Clipo'da giriş yapılmadı.");
+
+    }
+
+});
+
+
+/* GİRİŞ */
 
 window.loginUser = async function(){
 
@@ -515,17 +636,27 @@ window.loginUser = async function(){
         message.innerText =
             "✅ Clipo'ya giriş yapıldı!";
 
-        setTimeout(closeLogin,1000);
+        setTimeout(function(){
+
+            closeLogin();
+
+        },1000);
+
 
     }catch(error){
 
+        console.error(error);
+
         message.innerText =
-            "❌ Giriş başarısız: " + error.message;
+            "❌ Giriş başarısız: " +
+            error.message;
 
     }
 
 };
 
+
+/* KAYIT */
 
 window.registerUser = async function(){
 
@@ -568,39 +699,120 @@ window.registerUser = async function(){
         message.innerText =
             "🎉 Clipo hesabın oluşturuldu!";
 
+
+        setTimeout(function(){
+
+            closeLogin();
+
+        },1000);
+
+
     }catch(error){
 
+        console.error(error);
+
         message.innerText =
-            "❌ Kayıt başarısız: " + error.message;
+            "❌ Kayıt başarısız: " +
+            error.message;
 
     }
 
 };
 
-</script>
+
+/* ÇIKIŞ */
+
+window.logoutUser = async function(){
+
+    try{
+
+        await signOut(auth);
+
+        closeProfile();
+
+        alert("Clipo'dan çıkış yapıldı.");
+
+    }catch(error){
+
+        console.error(error);
+
+        alert("Çıkış yapılamadı.");
+
+    }
+
+};
 
 
-<script>
+/* GİRİŞ KONTROLÜ */
 
-function openLogin(){
+window.openProtected = function(){
 
-    document
-    .getElementById("loginModal")
-    .classList.add("show");
+    const user = auth.currentUser;
 
-}
+    if(user){
+
+        alert(
+            "✅ Giriş yapıldı.\n\nBu bölüm bir sonraki aşamada açılacak."
+        );
+
+    }else{
+
+        openLogin();
+
+    }
+
+};
 
 
-function closeLogin(){
+/* PROFİL */
 
-    document
-    .getElementById("loginModal")
+window.openProfileOrLogin = function(){
+
+    const user = auth.currentUser;
+
+    if(user){
+
+        document.getElementById("profileModal")
+        .classList.add("show");
+
+    }else{
+
+        openLogin();
+
+    }
+
+};
+
+
+window.closeProfile = function(){
+
+    document.getElementById("profileModal")
     .classList.remove("show");
 
-}
+};
 
 
-function likePost(button){
+/* GİRİŞ PENCERESİ */
+
+window.openLogin = function(){
+
+    document.getElementById("loginModal")
+    .classList.add("show");
+
+};
+
+
+window.closeLogin = function(){
+
+    document.getElementById("loginModal")
+    .classList.remove("show");
+
+};
+
+
+/* BEĞENİ */
+
+window.likePost = function(button){
 
     button.classList.toggle("active");
 
@@ -627,7 +839,7 @@ function likePost(button){
 
     count.innerText = number;
 
-}
+};
 
 </script>
 
