@@ -434,4 +434,1140 @@ Mehmet
 </div>
 
 
-<main id="feed" style="
+<main id="feed" style="padding-bottom:20px">
+
+<div class="loading">
+Clipo yükleniyor...
+</div>
+
+</main>
+
+</div>
+
+
+<nav class="bottom">
+
+<div class="nav" onclick="loadFeed()">
+<span class="nav-icon">🏠</span>
+Ana Sayfa
+</div>
+
+<div class="nav" onclick="openProtected('Keşfet')">
+<span class="nav-icon">🔎</span>
+Keşfet
+</div>
+
+<div class="add" onclick="openCreatePost()">
++
+</div>
+
+<div class="nav" onclick="openChat()">
+<span class="nav-icon">💬</span>
+Sohbet
+</div>
+
+<div class="nav" onclick="openProfileOrLogin()">
+<span class="nav-icon">👤</span>
+Profil
+</div>
+
+</nav>
+
+
+<!-- GİRİŞ -->
+
+<div class="modal" id="loginModal">
+
+<div class="box">
+
+<div class="close" onclick="closeLogin()">×</div>
+
+<h2>Clipo'ya Giriş Yap</h2>
+
+<input
+class="input"
+id="email"
+type="email"
+placeholder="E-posta">
+
+<input
+class="input"
+id="password"
+type="password"
+placeholder="Şifre">
+
+<button class="btn" onclick="loginUser()">
+Giriş Yap
+</button>
+
+<button class="btn secondary" onclick="registerUser()">
+Kayıt Ol
+</button>
+
+<div class="message" id="loginMessage"></div>
+
+</div>
+
+</div>
+
+
+<!-- PROFİL -->
+
+<div class="modal" id="profileModal">
+
+<div class="box">
+
+<div class="close" onclick="closeProfile()">×</div>
+
+<h2>Profilim</h2>
+
+<div class="profile-avatar" id="profileAvatar">
+👤
+</div>
+
+<h3 id="profileName" style="text-align:center">
+Clipo Kullanıcısı
+</h3>
+
+<div
+id="profileEmail"
+style="text-align:center;color:#aaa;margin:8px 0 15px;word-break:break-all">
+-
+</div>
+
+<label class="file-label">
+📷 Profil Fotoğrafı Seç
+<input
+type="file"
+id="profileFile"
+accept="image/*"
+onchange="uploadProfilePhoto(this)">
+</label>
+
+<div class="message" id="profileMessage"></div>
+
+<button class="btn" onclick="logoutUser()">
+🚪 Çıkış Yap
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PAYLAŞIM -->
+
+<div class="modal" id="postModal">
+
+<div class="box">
+
+<div class="close" onclick="closeCreatePost()">×</div>
+
+<h2>Yeni Paylaşım</h2>
+
+<textarea
+class="input"
+id="postCaption"
+placeholder="Ne paylaşmak istiyorsun?"></textarea>
+
+<label class="file-label">
+📷 Fotoğraf / Video Seç
+<input
+type="file"
+id="postFile"
+accept="image/*,video/*"
+onchange="previewPost(this)">
+</label>
+
+<img
+id="postPreviewImage"
+class="preview">
+
+<video
+id="postPreviewVideo"
+class="preview"
+controls></video>
+
+<button class="btn" onclick="createPost()">
+🚀 Paylaş
+</button>
+
+<div class="message" id="postMessage"></div>
+
+</div>
+
+</div>
+
+
+<!-- BİLDİRİMLER -->
+
+<div class="modal" id="notificationModal">
+
+<div class="box">
+
+<div class="close" onclick="closeModal('notificationModal')">×</div>
+
+<h2>Bildirimler</h2>
+
+<div class="empty">
+🔔 Şimdilik yeni bildirimin yok.
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SOHBET -->
+
+<div class="modal" id="chatModal">
+
+<div class="box">
+
+<div class="close" onclick="closeModal('chatModal')">×</div>
+
+<h2>Clipo Sohbet</h2>
+
+<div class="empty">
+💬 Sohbet sistemi sonraki aşamada Firebase'e bağlanacak.
+</div>
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword,
+createUserWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs,
+query,
+orderBy,
+serverTimestamp,
+doc,
+updateDoc,
+increment
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyDys5NqKqRt2GFcDBUnE1PGXXOC3ap8Asw",
+
+authDomain:
+"cripo-e7483.firebaseapp.com",
+
+projectId:
+"cripo-e7483",
+
+storageBucket:
+"cripo-e7483.firebasestorage.app",
+
+messagingSenderId:
+"687926578600",
+
+appId:
+"1:687926578600:web:a1bc8b8740d9d153a4e19d",
+
+measurementId:
+"G-M4BYQYDYYX"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+const storage = getStorage(app);
+
+
+/* KULLANICI DURUMU */
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+console.log("Clipo giriş:",user.email);
+
+}else{
+
+console.log("Clipo ziyaretçi modu");
+
+}
+
+loadFeed();
+
+});
+
+
+/* GİRİŞ */
+
+window.loginUser = async function(){
+
+const email =
+document.getElementById("email").value.trim();
+
+const password =
+document.getElementById("password").value;
+
+const message =
+document.getElementById("loginMessage");
+
+if(!email || !password){
+
+message.innerText =
+"E-posta ve şifre gerekli.";
+
+return;
+}
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+message.innerText =
+"✅ Giriş başarılı!";
+
+setTimeout(()=>{
+closeLogin();
+},700);
+
+}catch(error){
+
+console.error(error);
+
+message.innerText =
+"❌ Giriş başarısız: " +
+error.message;
+
+}
+
+};
+
+
+/* KAYIT */
+
+window.registerUser = async function(){
+
+const email =
+document.getElementById("email").value.trim();
+
+const password =
+document.getElementById("password").value;
+
+const message =
+document.getElementById("loginMessage");
+
+if(!email || !password){
+
+message.innerText =
+"E-posta ve şifre gerekli.";
+
+return;
+}
+
+if(password.length < 6){
+
+message.innerText =
+"Şifre en az 6 karakter olmalı.";
+
+return;
+}
+
+try{
+
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+message.innerText =
+"🎉 Hesap oluşturuldu!";
+
+setTimeout(()=>{
+closeLogin();
+},700);
+
+}catch(error){
+
+console.error(error);
+
+message.innerText =
+"❌ Kayıt başarısız: " +
+error.message;
+
+}
+
+};
+
+
+/* ÇIKIŞ */
+
+window.logoutUser = async function(){
+
+try{
+
+await signOut(auth);
+
+closeProfile();
+
+alert("Clipo'dan çıkış yapıldı.");
+
+}catch(error){
+
+alert("Çıkış yapılamadı.");
+
+}
+
+};
+
+
+/* GİRİŞ KONTROLÜ */
+
+window.openProtected = function(name){
+
+if(auth.currentUser){
+
+alert(
+"✅ Giriş yapıldı.\n\n" +
+name +
+" bölümü hazırlanıyor."
+);
+
+}else{
+
+openLogin();
+
+}
+
+};
+
+
+/* GİRİŞ PENCERESİ */
+
+window.openLogin = function(){
+
+document
+.getElementById("loginModal")
+.classList.add("show");
+
+};
+
+window.closeLogin = function(){
+
+document
+.getElementById("loginModal")
+.classList.remove("show");
+
+};
+
+
+/* PROFİL */
+
+window.openProfileOrLogin = function(){
+
+const user = auth.currentUser;
+
+if(!user){
+
+openLogin();
+
+return;
+
+}
+
+document
+.getElementById("profileModal")
+.classList.add("show");
+
+document
+.getElementById("profileEmail")
+.innerText =
+user.email || "-";
+
+document
+.getElementById("profileName")
+.innerText =
+(user.email || "Clipo Kullanıcısı")
+.split("@")[0];
+
+};
+
+window.closeProfile = function(){
+
+closeModal("profileModal");
+
+};
+
+
+/* MODAL */
+
+window.closeModal = function(id){
+
+document
+.getElementById(id)
+.classList.remove("show");
+
+};
+
+
+/* BİLDİRİMLER */
+
+window.openNotifications = function(){
+
+document
+.getElementById("notificationModal")
+.classList.add("show");
+
+};
+
+
+/* SOHBET */
+
+window.openChat = function(){
+
+if(!auth.currentUser){
+
+openLogin();
+
+return;
+
+}
+
+document
+.getElementById("chatModal")
+.classList.add("show");
+
+};
+
+
+/* PAYLAŞIM PENCERESİ */
+
+window.openCreatePost = function(){
+
+if(!auth.currentUser){
+
+openLogin();
+
+return;
+
+}
+
+document
+.getElementById("postModal")
+.classList.add("show");
+
+};
+
+window.closeCreatePost = function(){
+
+closeModal("postModal");
+
+};
+
+
+/* DOSYA ÖNİZLEME */
+
+window.previewPost = function(input){
+
+const file =
+input.files[0];
+
+if(!file)return;
+
+const image =
+document.getElementById("postPreviewImage");
+
+const video =
+document.getElementById("postPreviewVideo");
+
+image.style.display="none";
+video.style.display="none";
+
+const url =
+URL.createObjectURL(file);
+
+if(file.type.startsWith("image/")){
+
+image.src=url;
+image.style.display="block";
+
+}else if(file.type.startsWith("video/")){
+
+video.src=url;
+video.style.display="block";
+
+}
+
+};
+
+
+/* PAYLAŞIM */
+
+window.createPost = async function(){
+
+const user = auth.currentUser;
+
+const message =
+document.getElementById("postMessage");
+
+if(!user){
+
+openLogin();
+
+return;
+
+}
+
+const file =
+document.getElementById("postFile").files[0];
+
+const caption =
+document.getElementById("postCaption").value.trim();
+
+if(!file){
+
+message.innerText =
+"📷 Önce fotoğraf veya video seç.";
+
+return;
+
+}
+
+message.innerText =
+"⏳ Paylaşım yükleniyor...";
+
+try{
+
+const safeName =
+file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+
+const path =
+"posts/" +
+user.uid +
+"/" +
+Date.now() +
+"_" +
+safeName;
+
+const storageRef =
+ref(storage,path);
+
+await uploadBytes(
+storageRef,
+file
+);
+
+const mediaUrl =
+await getDownloadURL(storageRef);
+
+const type =
+file.type.startsWith("video/")
+? "video"
+: "image";
+
+await addDoc(
+collection(db,"posts"),
+{
+uid:user.uid,
+email:user.email,
+caption:caption,
+mediaUrl:mediaUrl,
+type:type,
+likes:0,
+createdAt:serverTimestamp()
+}
+);
+
+message.innerText =
+"✅ Paylaşım yapıldı!";
+
+document.getElementById("postCaption").value="";
+document.getElementById("postFile").value="";
+
+document.getElementById("postPreviewImage").style.display="none";
+document.getElementById("postPreviewVideo").style.display="none";
+
+setTimeout(()=>{
+
+closeCreatePost();
+loadFeed();
+
+},800);
+
+}catch(error){
+
+console.error(error);
+
+message.innerText =
+"❌ Paylaşım başarısız: " +
+error.message;
+
+}
+
+};
+
+
+/* AKIŞ */
+
+window.loadFeed = async function(){
+
+const feed =
+document.getElementById("feed");
+
+feed.innerHTML =
+'<div class="loading">Clipo yükleniyor...</div>';
+
+try{
+
+const q =
+query(
+collection(db,"posts"),
+orderBy("createdAt","desc")
+);
+
+const snapshot =
+await getDocs(q);
+
+feed.innerHTML="";
+
+if(snapshot.empty){
+
+feed.innerHTML =
+'<div class="empty">🎬 Henüz paylaşım yok.<br><br>İlk paylaşımı sen yap!</div>';
+
+return;
+
+}
+
+snapshot.forEach((item)=>{
+
+renderPost(
+item.id,
+item.data(),
+feed
+);
+
+});
+
+}catch(error){
+
+console.error(error);
+
+feed.innerHTML =
+'<div class="empty">Clipo şu anda yüklenemedi.<br><br>Sayfayı yenilemeyi dene.</div>';
+
+}
+
+};
+
+
+/* GÖNDERİ OLUŞTUR */
+
+function renderPost(id,data,container){
+
+const article =
+document.createElement("article");
+
+article.className="post";
+
+const name =
+data.email
+? data.email.split("@")[0]
+: "Clipo Kullanıcısı";
+
+const media =
+data.type === "video"
+?
+`<video src="${data.mediaUrl}" controls playsinline></video>`
+:
+`<img src="${data.mediaUrl}" alt="Clipo paylaşımı">`;
+
+article.innerHTML = `
+
+<div class="post-header">
+
+<div class="avatar">
+👤
+</div>
+
+<div>
+<b>@${escapeHtml(name)}</b>
+<br>
+<small>Clipo</small>
+</div>
+
+</div>
+
+<div class="media">
+${media}
+</div>
+
+<div class="actions">
+
+<span
+class="action"
+onclick="likePost('${id}',this)">
+❤️
+</span>
+
+<span
+class="action"
+onclick="focusComment('${id}')">
+💬
+</span>
+
+<span
+class="action"
+onclick="sharePost('${id}')">
+↗️
+</span>
+
+</div>
+
+<div class="likes">
+<span id="likes-${id}">
+${Number(data.likes || 0)}
+</span>
+beğeni
+</div>
+
+<div class="caption">
+
+<b>@${escapeHtml(name)}</b>
+${escapeHtml(data.caption || "")}
+
+</div>
+
+<div
+class="comments"
+id="comments-${id}">
+</div>
+
+<div class="comment-form">
+
+<input
+id="comment-${id}"
+placeholder="Yorum yaz...">
+
+<button
+onclick="addComment('${id}')">
+Gönder
+</button>
+
+</div>
+
+`;
+
+container.appendChild(article);
+
+}
+
+
+/* BEĞENİ */
+
+window.likePost = async function(id,button){
+
+if(!auth.currentUser){
+
+openLogin();
+
+return;
+
+}
+
+try{
+
+const postRef =
+doc(db,"posts",id);
+
+await updateDoc(
+postRef,
+{
+likes:increment(1)
+}
+);
+
+button.classList.add("active");
+
+const counter =
+document.getElementById("likes-"+id);
+
+if(counter){
+
+counter.innerText =
+Number(counter.innerText)+1;
+
+}
+
+}catch(error){
+
+console.error(error);
+
+alert("Beğeni kaydedilemedi.");
+
+}
+
+};
+
+
+/* YORUM */
+
+window.addComment = async function(postId){
+
+if(!auth.currentUser){
+
+openLogin();
+
+return;
+
+}
+
+const input =
+document.getElementById(
+"comment-"+postId
+);
+
+const text =
+input.value.trim();
+
+if(!text)return;
+
+try{
+
+await addDoc(
+collection(
+db,
+"posts",
+postId,
+"comments"
+),
+{
+uid:auth.currentUser.uid,
+email:auth.currentUser.email,
+text:text,
+createdAt:serverTimestamp()
+}
+);
+
+input.value="";
+
+const area =
+document.getElementById(
+"comments-"+postId
+);
+
+const div =
+document.createElement("div");
+
+div.className="comment";
+
+div.innerHTML =
+"<b>@"+
+escapeHtml(
+auth.currentUser.email.split("@")[0]
+)+
+"</b> "+
+escapeHtml(text);
+
+area.appendChild(div);
+
+}catch(error){
+
+console.error(error);
+
+alert("Yorum gönderilemedi.");
+
+}
+
+};
+
+
+/* YORUM ALANI */
+
+window.focusComment = function(id){
+
+const input =
+document.getElementById(
+"comment-"+id
+);
+
+if(input){
+
+input.focus();
+
+input.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+}
+
+};
+
+
+/* PAYLAŞ */
+
+window.sharePost = async function(id){
+
+const url =
+window.location.href;
+
+if(navigator.share){
+
+try{
+
+await navigator.share({
+title:"Clipo",
+text:"Clipo'da bir paylaşım",
+url:url
+});
+
+}catch(e){}
+
+}else{
+
+try{
+
+await navigator.clipboard.writeText(url);
+
+alert("📋 Clipo bağlantısı kopyalandı.");
+
+}catch(e){
+
+alert("Bağlantı: "+url);
+
+}
+
+}
+
+};
+
+
+/* PROFİL FOTOĞRAFI */
+
+window.uploadProfilePhoto = async function(input){
+
+const user =
+auth.currentUser;
+
+const message =
+document.getElementById(
+"profileMessage"
+);
+
+if(!user)return;
+
+const file =
+input.files[0];
+
+if(!file)return;
+
+if(!file.type.startsWith("image/")){
+
+message.innerText =
+"Sadece fotoğraf seçebilirsin.";
+
+return;
+
+}
+
+message.innerText =
+"⏳ Fotoğraf yükleniyor...";
+
+try{
+
+const safeName =
+file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+
+const path =
+"profiles/" +
+user.uid +
+"/profile_" +
+Date.now() +
+"_" +
+safeName;
+
+const storageRef =
+ref(storage,path);
+
+await uploadBytes(
+storageRef,
+file
+);
+
+const url =
+await getDownloadURL(storageRef);
+
+const avatar =
+document.getElementById("profileAvatar");
+
+avatar.innerHTML =
+`<img src="${url}" alt="Profil">`;
+
+message.innerText =
+"✅ Profil fotoğrafı güncellendi.";
+
+}catch(error){
+
+console.error(error);
+
+message.innerText =
+"❌ Fotoğraf yüklenemedi: "+
+error.message;
+
+}
+
+};
+
+
+/* HTML GÜVENLİĞİ */
+
+function escapeHtml(value){
+
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
