@@ -10,20 +10,20 @@
 box-sizing:border-box;
 margin:0;
 padding:0;
-font-family:Arial,sans-serif;
+font-family:Arial,sans-serif
 }
 
 body{
 background:#050505;
-color:#fff;
+color:#fff
 }
 
 button,input,textarea{
-font:inherit;
+font:inherit
 }
 
 button{
-cursor:pointer;
+cursor:pointer
 }
 
 .app{
@@ -32,7 +32,7 @@ max-width:500px;
 min-height:100vh;
 margin:auto;
 background:#0b0b0b;
-padding-bottom:90px;
+padding-bottom:85px
 }
 
 .topbar{
@@ -45,37 +45,36 @@ background:#090909;
 border-bottom:1px solid #222;
 position:sticky;
 top:0;
-z-index:20;
+z-index:20
 }
 
 .logo{
 font-size:30px;
-font-weight:bold;
+font-weight:bold
 }
 
 .logo span{
-color:#ff1744;
+color:#ff1744
 }
 
 .top-actions{
 display:flex;
 align-items:center;
-gap:10px;
+gap:12px
 }
 
 .top-icon{
 font-size:22px;
-cursor:pointer;
-padding:5px;
+cursor:pointer
 }
 
 .login-top{
-border:0;
 background:#ff1744;
-color:#fff;
+border:0;
+color:white;
 padding:9px 13px;
 border-radius:20px;
-font-weight:bold;
+font-weight:bold
 }
 
 .stories{
@@ -83,14 +82,14 @@ display:flex;
 gap:14px;
 overflow-x:auto;
 padding:15px;
-border-bottom:1px solid #222;
+border-bottom:1px solid #222
 }
 
 .story{
 min-width:62px;
 text-align:center;
 font-size:11px;
-cursor:pointer;
+cursor:pointer
 }
 
 .story-img{
@@ -101,29 +100,22 @@ border:2px solid #ff1744;
 display:flex;
 align-items:center;
 justify-content:center;
-margin:0 auto 5px;
+margin:auto auto 5px;
 background:#181818;
 font-size:23px;
-overflow:hidden;
+overflow:hidden
 }
 
 .story-img img{
 width:100%;
 height:100%;
-object-fit:cover;
-}
-
-.status{
-text-align:center;
-color:#999;
-padding:10px;
-font-size:13px;
+object-fit:cover
 }
 
 .post{
 background:#111;
 border-bottom:1px solid #252525;
-margin-bottom:18px;
+margin-bottom:18px
 }
 
 .post-header{
@@ -131,7 +123,7 @@ min-height:58px;
 display:flex;
 align-items:center;
 gap:10px;
-padding:9px 14px;
+padding:9px 14px
 }
 
 .avatar{
@@ -144,98 +136,98 @@ align-items:center;
 justify-content:center;
 overflow:hidden;
 font-size:20px;
-flex:none;
+flex:none
 }
 
 .avatar img{
 width:100%;
 height:100%;
-object-fit:cover;
+object-fit:cover
 }
 
 .media{
 width:100%;
-min-height:220px;
+min-height:280px;
 max-height:600px;
 background:#181818;
 display:flex;
 align-items:center;
 justify-content:center;
-overflow:hidden;
+overflow:hidden
 }
 
 .media img{
 width:100%;
 max-height:600px;
 object-fit:contain;
-display:block;
+display:block
 }
 
 .placeholder{
-font-size:70px;
-padding:70px;
+font-size:75px;
+padding:70px
 }
 
 .actions{
 display:flex;
 align-items:center;
 gap:20px;
-padding:12px 15px 5px;
+padding:12px 15px 5px
 }
 
 .action{
 font-size:25px;
-cursor:pointer;
+cursor:pointer
 }
 
 .like.active{
-color:#ff1744;
+color:#ff1744
 }
 
 .likes{
 padding:5px 15px;
-font-weight:bold;
+font-weight:bold
 }
 
 .caption{
 padding:5px 15px 12px;
 color:#ddd;
-line-height:1.4;
+line-height:1.4
 }
 
 .comments{
-padding:0 15px 8px;
+padding:0 15px 8px
 }
 
 .comment{
 padding:6px 0;
-font-size:13px;
+font-size:13px
 }
 
 .comment-form{
 display:flex;
 gap:7px;
-padding:0 15px 14px;
+padding:0 15px 14px
 }
 
 .comment-form input{
 flex:1;
 min-width:0;
 background:#090909;
-color:#fff;
+color:white;
 border:1px solid #333;
 border-radius:9px;
 padding:10px;
-outline:none;
+outline:none
 }
 
 .comment-form button{
 border:0;
 border-radius:9px;
 background:#ff1744;
-color:#fff;
+color:white;
 padding:0 13px;
-font-weight:bold;
+font-weight:bold
 }
 
 .bottom{
@@ -251,33 +243,33 @@ border-top:1px solid #292929;
 display:flex;
 justify-content:space-around;
 align-items:center;
-z-index:30;
+z-index:30
 }
 
 .nav{
 text-align:center;
 color:#aaa;
 font-size:12px;
-cursor:pointer;
+cursor:pointer
 }
 
 .nav-icon{
 display:block;
 font-size:23px;
-margin-bottom:3px;
+margin-bottom:3px
 }
 
 .add{
 width:52px;
 height:42px;
 border-radius:12px;
-background:#fff;
-color:#000;
+background:white;
+color:black;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:30px;
-cursor:pointer;
+cursor:pointer
 }
 
 .modal{
@@ -288,11 +280,11 @@ background:rgba(0,0,0,.94);
 z-index:100;
 align-items:center;
 justify-content:center;
-padding:18px;
+padding:18px
 }
 
 .modal.show{
-display:flex;
+display:flex
 }
 
 .box{
@@ -302,18 +294,18 @@ max-height:90vh;
 overflow:auto;
 background:#151515;
 border-radius:20px;
-padding:22px;
+padding:22px
 }
 
 .close{
 text-align:right;
 font-size:28px;
-cursor:pointer;
+cursor:pointer
 }
 
 .box h2{
 text-align:center;
-margin:8px 0 20px;
+margin:8px 0 20px
 }
 
 .input{
@@ -322,15 +314,15 @@ min-height:48px;
 margin-bottom:12px;
 padding:12px 14px;
 background:#090909;
-color:#fff;
+color:white;
 border:1px solid #333;
 border-radius:10px;
-outline:none;
+outline:none
 }
 
 textarea.input{
 height:90px;
-resize:none;
+resize:none
 }
 
 .btn{
@@ -339,66 +331,5 @@ min-height:48px;
 border:0;
 border-radius:10px;
 background:#ff1744;
-color:#fff;
+color:white;
 font-weight:bold;
-margin-bottom:10px;
-}
-
-.btn.gray{
-background:#333;
-}
-
-.message{
-text-align:center;
-color:#aaa;
-font-size:13px;
-line-height:1.5;
-margin-top:8px;
-}
-
-.profile-avatar{
-width:95px;
-height:95px;
-border-radius:50%;
-background:#333;
-margin:10px auto 15px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:40px;
-overflow:hidden;
-border:2px solid #ff1744;
-}
-
-.profile-avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.file-label{
-display:block;
-text-align:center;
-background:#333;
-padding:14px;
-border-radius:10px;
-margin-bottom:10px;
-cursor:pointer;
-}
-
-.file-label input{
-display:none;
-}
-
-.preview{
-width:100%;
-max-height:250px;
-object-fit:contain;
-border-radius:10px;
-display:none;
-margin-bottom:10px;
-}
-
-.empty{
-text-align:center;
-color:#777;
