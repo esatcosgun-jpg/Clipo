@@ -15,15 +15,24 @@
 
 body{
     background:#050505;
-    color:white;
+    color:#fff;
+}
+
+button,input,textarea{
+    font-family:Arial,sans-serif;
+}
+
+button{
+    cursor:pointer;
 }
 
 .app{
+    width:100%;
     max-width:500px;
     min-height:100vh;
     margin:auto;
     background:#0b0b0b;
-    padding-bottom:80px;
+    padding-bottom:85px;
 }
 
 .topbar{
@@ -32,7 +41,7 @@ body{
     align-items:center;
     justify-content:space-between;
     padding:0 18px;
-    border-bottom:1px solid #222;
+    border-bottom:1px solid #252525;
     position:sticky;
     top:0;
     background:#090909;
@@ -54,15 +63,6 @@ body{
     font-size:22px;
 }
 
-.icons span,
-.nav,
-.add,
-.action,
-.close,
-.story{
-    cursor:pointer;
-}
-
 .stories{
     display:flex;
     gap:14px;
@@ -75,6 +75,7 @@ body{
     min-width:62px;
     text-align:center;
     font-size:11px;
+    cursor:pointer;
 }
 
 .story-img{
@@ -85,7 +86,7 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    margin:auto;
+    margin:auto auto 5px;
     background:#181818;
     font-size:23px;
     overflow:hidden;
@@ -104,7 +105,7 @@ body{
 }
 
 .post-header{
-    min-height:55px;
+    min-height:58px;
     display:flex;
     align-items:center;
     gap:10px;
@@ -130,10 +131,13 @@ body{
 }
 
 .media{
+    width:100%;
+    min-height:250px;
+    max-height:600px;
     background:#181818;
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     overflow:hidden;
 }
 
@@ -152,6 +156,11 @@ body{
     font-size:25px;
 }
 
+.action{
+    cursor:pointer;
+    user-select:none;
+}
+
 .like.active{
     color:#ff1744;
 }
@@ -168,12 +177,12 @@ body{
 }
 
 .comments{
-    padding:0 15px 10px;
+    padding:0 15px 8px;
 }
 
 .comment{
-    font-size:13px;
     padding:4px 0;
+    font-size:13px;
 }
 
 .comment-form{
@@ -184,11 +193,13 @@ body{
 
 .comment-form input{
     flex:1;
+    min-width:0;
     background:#090909;
     color:white;
     border:1px solid #333;
     border-radius:9px;
     padding:10px;
+    outline:none;
 }
 
 .comment-form button{
@@ -219,6 +230,7 @@ body{
     text-align:center;
     color:#aaa;
     font-size:12px;
+    cursor:pointer;
 }
 
 .nav-icon{
@@ -237,13 +249,14 @@ body{
     align-items:center;
     justify-content:center;
     font-size:30px;
+    cursor:pointer;
 }
 
 .modal{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.9);
+    background:rgba(0,0,0,.92);
     z-index:100;
     align-items:center;
     justify-content:center;
@@ -266,7 +279,8 @@ body{
 
 .close{
     text-align:right;
-    font-size:27px;
+    font-size:28px;
+    cursor:pointer;
 }
 
 .box h2{
@@ -283,6 +297,7 @@ body{
     color:white;
     border:1px solid #333;
     border-radius:10px;
+    outline:none;
 }
 
 textarea.input{
@@ -355,40 +370,23 @@ textarea.input{
     display:none;
 }
 
-.search-result,
-.chat-user{
-    padding:12px;
-    border-bottom:1px solid #333;
-    cursor:pointer;
-}
-
-.chat-messages{
-    height:260px;
-    overflow:auto;
-    background:#090909;
-    border-radius:10px;
-    padding:10px;
-    margin-bottom:10px;
-}
-
-.bubble{
-    padding:8px 11px;
-    border-radius:12px;
-    background:#292929;
-    margin:5px 0;
-    max-width:80%;
-    font-size:13px;
-}
-
-.bubble.me{
-    margin-left:auto;
-    background:#ff1744;
-}
-
 .empty{
     text-align:center;
     color:#777;
     padding:40px 15px;
+}
+
+.loading{
+    text-align:center;
+    padding:35px;
+    color:#aaa;
+}
+
+.status{
+    text-align:center;
+    padding:10px;
+    font-size:13px;
+    color:#aaa;
 }
 </style>
 </head>
@@ -414,4 +412,26 @@ Cli<span>po</span>
 <div class="stories">
 
 <div class="story" onclick="openProfileOrLogin()">
-<div class="
+<div class="story-img">➕</div>
+Sen
+</div>
+
+<div class="story">
+<div class="story-img">😎</div>
+Esat
+</div>
+
+<div class="story">
+<div class="story-img">👩</div>
+Ayşe
+</div>
+
+<div class="story">
+<div class="story-img">🧔</div>
+Mehmet
+</div>
+
+</div>
+
+
+<main id="feed" style="
