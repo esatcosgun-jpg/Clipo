@@ -6,45 +6,390 @@
 <title>Clipo - Sosyal Video & Sohbet</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#050505;color:white}
-.app{max-width:500px;min-height:100vh;margin:auto;background:#0b0b0b}
-.topbar{height:65px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #222;position:sticky;top:0;background:#090909;z-index:10}
-.logo{font-size:30px;font-weight:bold}.logo span{color:#ff1744}
-.icons{display:flex;gap:18px;font-size:22px}
-.stories{display:flex;gap:14px;overflow-x:auto;padding:15px;border-bottom:1px solid #222}
-.story{min-width:62px;text-align:center;font-size:11px}
-.story-img{width:55px;height:55px;border-radius:50%;border:2px solid #ff1744;display:flex;align-items:center;justify-content:center;margin:auto;background:#181818;font-size:23px;overflow:hidden}
-.story-img img{width:100%;height:100%;object-fit:cover}
-.post{background:#111;border-bottom:1px solid #252525;margin-bottom:20px}
-.post-header{height:55px;display:flex;align-items:center;gap:10px;padding:8px 14px}
-.avatar{width:38px;height:38px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.video{min-height:300px;max-height:600px;background:#181818;display:flex;align-items:center;justify-content:center;font-size:80px;overflow:hidden}
-.video img{width:100%;height:auto;display:block}
-.actions{display:flex;gap:20px;padding:12px 15px 5px}
-.action{font-size:25px;cursor:pointer}.like.active{color:#ff1744}
-.likes{padding:5px 15px;font-weight:bold}
-.caption{padding:5px 15px 15px;color:#ddd}
-.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;height:70px;background:#090909;border-top:1px solid #292929;display:flex;justify-content:space-around;align-items:center;z-index:20}
-.nav{text-align:center;color:#aaa;font-size:12px;cursor:pointer}
-.nav-icon{display:block;font-size:23px;margin-bottom:3px}
-.add{width:52px;height:42px;background:white;color:black;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:30px;cursor:pointer}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;align-items:center;justify-content:center;padding:20px}
-.modal.show{display:flex}
-.box{width:100%;max-width:380px;background:#151515;border-radius:20px;padding:25px}
-.close{text-align:right;font-size:26px;cursor:pointer}
-.box h2{text-align:center;margin:10px 0 20px}
-.input{width:100%;height:48px;margin-bottom:12px;padding:0 14px;background:#090909;color:white;border:1px solid #333;border-radius:10px}
-.btn{width:100%;height:48px;border:0;border-radius:10px;background:#ff1744;color:white;font-size:16px;font-weight:bold;cursor:pointer;margin-bottom:10px}
-.btn.secondary{background:#333}
-.message{text-align:center;margin-top:10px;color:#aaa;font-size:13px}
-.profile-info{text-align:center;padding:10px 0 20px}
-.profile-avatar{width:90px;height:90px;margin:0 auto 15px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden;cursor:pointer}
-.profile-avatar img{width:100%;height:100%;object-fit:cover}
-.file-label{display:block;text-align:center;background:#333;padding:12px;border-radius:10px;margin-bottom:12px;cursor:pointer}
-.file-label input{display:none}
-.empty{text-align:center;color:#777;padding:30px}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#050505;
+    color:white;
+}
+
+.app{
+    max-width:500px;
+    min-height:100vh;
+    margin:auto;
+    background:#0b0b0b;
+    padding-bottom:80px;
+}
+
+.topbar{
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    border-bottom:1px solid #222;
+    position:sticky;
+    top:0;
+    background:#090909;
+    z-index:20;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ff1744;
+}
+
+.icons{
+    display:flex;
+    gap:18px;
+    font-size:22px;
+}
+
+.icons span,
+.nav,
+.add,
+.action,
+.close,
+.story{
+    cursor:pointer;
+}
+
+.stories{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    padding:15px;
+    border-bottom:1px solid #222;
+}
+
+.story{
+    min-width:62px;
+    text-align:center;
+    font-size:11px;
+}
+
+.story-img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    border:2px solid #ff1744;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    background:#181818;
+    font-size:23px;
+    overflow:hidden;
+}
+
+.story-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.post{
+    background:#111;
+    border-bottom:1px solid #252525;
+    margin-bottom:20px;
+}
+
+.post-header{
+    min-height:55px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 14px;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#333;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    flex:none;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.media{
+    background:#181818;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.media img,
+.media video{
+    width:100%;
+    max-height:600px;
+    object-fit:contain;
+    display:block;
+}
+
+.actions{
+    display:flex;
+    gap:20px;
+    padding:12px 15px 5px;
+    font-size:25px;
+}
+
+.like.active{
+    color:#ff1744;
+}
+
+.likes{
+    padding:5px 15px;
+    font-weight:bold;
+}
+
+.caption{
+    padding:5px 15px 12px;
+    color:#ddd;
+    line-height:1.4;
+}
+
+.comments{
+    padding:0 15px 10px;
+}
+
+.comment{
+    font-size:13px;
+    padding:4px 0;
+}
+
+.comment-form{
+    display:flex;
+    gap:7px;
+    padding:0 15px 14px;
+}
+
+.comment-form input{
+    flex:1;
+    background:#090909;
+    color:white;
+    border:1px solid #333;
+    border-radius:9px;
+    padding:10px;
+}
+
+.comment-form button{
+    background:#ff1744;
+    color:white;
+    border:0;
+    border-radius:9px;
+    padding:0 12px;
+}
+
+.bottom{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:500px;
+    height:70px;
+    background:#090909;
+    border-top:1px solid #292929;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:30;
+}
+
+.nav{
+    text-align:center;
+    color:#aaa;
+    font-size:12px;
+}
+
+.nav-icon{
+    display:block;
+    font-size:23px;
+    margin-bottom:3px;
+}
+
+.add{
+    width:52px;
+    height:42px;
+    background:white;
+    color:black;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.box{
+    width:100%;
+    max-width:390px;
+    max-height:92vh;
+    overflow:auto;
+    background:#151515;
+    border-radius:20px;
+    padding:22px;
+}
+
+.close{
+    text-align:right;
+    font-size:27px;
+}
+
+.box h2{
+    text-align:center;
+    margin:8px 0 18px;
+}
+
+.input{
+    width:100%;
+    min-height:48px;
+    margin-bottom:11px;
+    padding:12px 14px;
+    background:#090909;
+    color:white;
+    border:1px solid #333;
+    border-radius:10px;
+}
+
+textarea.input{
+    height:90px;
+    resize:none;
+}
+
+.btn{
+    width:100%;
+    min-height:48px;
+    border:0;
+    border-radius:10px;
+    background:#ff1744;
+    color:white;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.btn.secondary{
+    background:#333;
+}
+
+.message{
+    text-align:center;
+    color:#aaa;
+    font-size:13px;
+    margin-top:7px;
+}
+
+.profile-avatar{
+    width:95px;
+    height:95px;
+    border-radius:50%;
+    background:#333;
+    margin:10px auto 15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    overflow:hidden;
+    border:2px solid #ff1744;
+}
+
+.profile-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.file-label{
+    display:block;
+    text-align:center;
+    background:#333;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.file-label input{
+    display:none;
+}
+
+.preview{
+    width:100%;
+    max-height:250px;
+    object-fit:contain;
+    border-radius:10px;
+    margin-bottom:10px;
+    display:none;
+}
+
+.search-result,
+.chat-user{
+    padding:12px;
+    border-bottom:1px solid #333;
+    cursor:pointer;
+}
+
+.chat-messages{
+    height:260px;
+    overflow:auto;
+    background:#090909;
+    border-radius:10px;
+    padding:10px;
+    margin-bottom:10px;
+}
+
+.bubble{
+    padding:8px 11px;
+    border-radius:12px;
+    background:#292929;
+    margin:5px 0;
+    max-width:80%;
+    font-size:13px;
+}
+
+.bubble.me{
+    margin-left:auto;
+    background:#ff1744;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+    padding:40px 15px;
+}
 </style>
 </head>
 
@@ -53,708 +398,20 @@ body{background:#050505;color:white}
 <div class="app">
 
 <header class="topbar">
-<div class="logo">Cli<span>po</span></div>
-<div class="icons">
-<span onclick="openProtected()">🔔</span>
-<span onclick="openProtected()">💬</span>
+
+<div class="logo">
+Cli<span>po</span>
 </div>
+
+<div class="icons">
+<span onclick="openNotifications()">🔔</span>
+<span onclick="openChat()">💬</span>
+</div>
+
 </header>
 
+
 <div class="stories">
-<div class="story">
-<div class="story-img" id="myStory" onclick="openProfileOrLogin()">➕</div>
-Sen
-</div>
 
-<div class="story">
-<div class="story-img">😎</div>
-Esat
-</div>
-
-<div class="story">
-<div class="story-img">👩</div>
-Ayşe
-</div>
-
-<div class="story">
-<div class="story-img">🧔</div>
-Mehmet
-</div>
-</div>
-
-<main id="feed" style="padding-bottom:90px">
-<div class="empty">Paylaşımlar yükleniyor...</div>
-</main>
-
-<nav class="bottom">
-
-<div class="nav">
-<span class="nav-icon">🏠</span>
-Ana Sayfa
-</div>
-
-<div class="nav" onclick="openProtected()">
-<span class="nav-icon">🔎</span>
-Keşfet
-</div>
-
-<div class="add" onclick="openCreatePost()">+</div>
-
-<div class="nav" onclick="openProtected()">
-<span class="nav-icon">💬</span>
-Sohbet
-</div>
-
-<div class="nav" onclick="openProfileOrLogin()">
-<span class="nav-icon">👤</span>
-Profil
-</div>
-
-</nav>
-</div>
-
-<!-- GİRİŞ -->
-
-<div class="modal" id="loginModal">
-<div class="box">
-
-<div class="close" onclick="closeLogin()">×</div>
-
-<h2>Clipo'ya Giriş Yap</h2>
-
-<input class="input" id="email" type="email" placeholder="E-posta">
-<input class="input" id="password" type="password" placeholder="Şifre">
-
-<button class="btn" onclick="loginUser()">Giriş Yap</button>
-<button class="btn secondary" onclick="registerUser()">Kayıt Ol</button>
-
-<div class="message" id="message"></div>
-
-</div>
-</div>
-
-<!-- PAYLAŞIM -->
-
-<div class="modal" id="createModal">
-<div class="box">
-
-<div class="close" onclick="closeCreatePost()">×</div>
-
-<h2>Yeni Paylaşım</h2>
-
-<label class="file-label">
-📷 Fotoğraf Seç
-<input type="file" id="postImage" accept="image/*" onchange="previewPostImage(event)">
-</label>
-
-<div id="postPreview" style="text-align:center;margin-bottom:12px"></div>
-
-<input class="input" id="captionInput" placeholder="Bir şeyler yaz...">
-
-<button class="btn" onclick="createPost()">📤 Paylaş</button>
-
-<div class="message" id="postMessage"></div>
-
-</div>
-</div>
-
-<!-- PROFİL -->
-
-<div class="modal" id="profileModal">
-<div class="box">
-
-<div class="close" onclick="closeProfile()">×</div>
-
-<h2>Profilim</h2>
-
-<div class="profile-info">
-
-<div class="profile-avatar" id="profileAvatar">👤</div>
-
-<h3 id="profileName">Clipo Kullanıcısı</h3>
-
-<br>
-
-<div class="profile-email" id="profileEmail">-</div>
-
-</div>
-
-<label class="file-label">
-📷 Profil Fotoğrafını Değiştir
-<input type="file" id="profileImage" accept="image/*" onchange="changeProfilePhoto(event)">
-</label>
-
-<button class="btn" onclick="logoutUser()">🚪 Çıkış Yap</button>
-
-</div>
-</div>
-
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getAuth,
-signInWithEmailAndPassword,
-createUserWithEmailAndPassword,
-onAuthStateChanged,
-signOut
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-query,
-orderBy,
-limit,
-doc,
-setDoc,
-getDoc
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-const firebaseConfig = {
-
-apiKey:"AIzaSyDys5NqKqRt2GFcDBUnE1PGXXOC3ap8Asw",
-authDomain:"cripo-e7483.firebaseapp.com",
-projectId:"cripo-e7483",
-storageBucket:"cripo-e7483.firebasestorage.app",
-messagingSenderId:"687926578600",
-appId:"1:687926578600:web:a1bc8b8740d9d153a4e19d",
-measurementId:"G-M4BYQYDYYX"
-
-};
-
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
-
-
-/* FOTOĞRAFI KÜÇÜLT */
-
-function compressImage(file){
-
-return new Promise((resolve,reject)=>{
-
-const reader=new FileReader();
-
-reader.onload=function(e){
-
-const img=new Image();
-
-img.onload=function(){
-
-const canvas=document.createElement("canvas");
-
-let width=1000;
-let height=img.height*(width/img.width);
-
-if(img.width<1000){
-width=img.width;
-height=img.height;
-}
-
-canvas.width=width;
-canvas.height=height;
-
-const ctx=canvas.getContext("2d");
-
-ctx.drawImage(img,0,0,width,height);
-
-resolve(
-canvas.toDataURL("image/jpeg",0.65)
-);
-
-};
-
-img.onerror=reject;
-img.src=e.target.result;
-
-};
-
-reader.onerror=reject;
-reader.readAsDataURL(file);
-
-});
-
-}
-
-
-/* KULLANICI */
-
-onAuthStateChanged(auth,async user=>{
-
-if(user){
-
-document.getElementById("profileEmail").innerText=user.email;
-document.getElementById("profileName").innerText=user.email.split("@")[0];
-
-await loadProfilePhoto(user.uid);
-
-}else{
-
-console.log("Giriş yapılmadı.");
-
-}
-
-loadPosts();
-
-});
-
-
-/* GİRİŞ */
-
-window.loginUser=async function(){
-
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value;
-const message=document.getElementById("message");
-
-if(!email||!password){
-
-message.innerText="E-posta ve şifre gerekli.";
-return;
-
-}
-
-try{
-
-await signInWithEmailAndPassword(auth,email,password);
-
-message.innerText="✅ Giriş başarılı!";
-
-setTimeout(closeLogin,700);
-
-}catch(error){
-
-message.innerText="❌ "+error.message;
-
-}
-
-};
-
-
-/* KAYIT */
-
-window.registerUser=async function(){
-
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value;
-const message=document.getElementById("message");
-
-if(!email||!password){
-
-message.innerText="E-posta ve şifre gerekli.";
-return;
-
-}
-
-if(password.length<6){
-
-message.innerText="Şifre en az 6 karakter olmalı.";
-return;
-
-}
-
-try{
-
-await createUserWithEmailAndPassword(auth,email,password);
-
-message.innerText="🎉 Hesap oluşturuldu!";
-
-setTimeout(closeLogin,700);
-
-}catch(error){
-
-message.innerText="❌ "+error.message;
-
-}
-
-};
-
-
-/* ÇIKIŞ */
-
-window.logoutUser=async function(){
-
-await signOut(auth);
-closeProfile();
-
-};
-
-
-/* KORUMALI ALAN */
-
-window.openProtected=function(){
-
-if(auth.currentUser){
-
-alert("Bu bölüm Clipo'nun sonraki aşamasında açılacak.");
-
-}else{
-
-openLogin();
-
-}
-
-};
-
-
-/* PROFİL */
-
-window.openProfileOrLogin=function(){
-
-if(auth.currentUser){
-
-document.getElementById("profileModal").classList.add("show");
-
-}else{
-
-openLogin();
-
-}
-
-};
-
-
-window.openLogin=function(){
-document.getElementById("loginModal").classList.add("show");
-};
-
-window.closeLogin=function(){
-document.getElementById("loginModal").classList.remove("show");
-};
-
-window.closeProfile=function(){
-document.getElementById("profileModal").classList.remove("show");
-};
-
-
-/* PROFİL FOTOĞRAFI */
-
-window.changeProfilePhoto=async function(event){
-
-const file=event.target.files[0];
-
-if(!file||!auth.currentUser)return;
-
-try{
-
-const image=await compressImage(file);
-
-await setDoc(
-doc(db,"users",auth.currentUser.uid),
-{
-email:auth.currentUser.email,
-photo:image,
-updatedAt:Date.now()
-},
-{merge:true}
-);
-
-showProfilePhoto(image);
-
-alert("✅ Profil fotoğrafı değiştirildi!");
-
-}catch(error){
-
-console.error(error);
-alert("❌ Profil fotoğrafı kaydedilemedi.");
-
-}
-
-};
-
-
-async function loadProfilePhoto(uid){
-
-try{
-
-const snap=await getDoc(doc(db,"users",uid));
-
-if(snap.exists()&&snap.data().photo){
-
-showProfilePhoto(snap.data().photo);
-
-}
-
-}catch(error){
-
-console.error(error);
-
-}
-
-}
-
-
-function showProfilePhoto(image){
-
-document.getElementById("profileAvatar").innerHTML=
-`<img src="${image}">`;
-
-document.getElementById("myStory").innerHTML=
-`<img src="${image}">`;
-
-}
-
-
-/* PAYLAŞIM PENCERESİ */
-
-window.openCreatePost=function(){
-
-if(!auth.currentUser){
-
-openLogin();
-return;
-
-}
-
-document.getElementById("createModal").classList.add("show");
-
-};
-
-window.closeCreatePost=function(){
-
-document.getElementById("createModal").classList.remove("show");
-
-};
-
-
-/* FOTOĞRAF ÖNİZLEME */
-
-window.previewPostImage=function(event){
-
-const file=event.target.files[0];
-
-if(!file)return;
-
-const reader=new FileReader();
-
-reader.onload=function(e){
-
-document.getElementById("postPreview").innerHTML=
-`<img src="${e.target.result}" style="max-width:100%;border-radius:12px">`;
-
-};
-
-reader.readAsDataURL(file);
-
-};
-
-
-/* PAYLAŞ */
-
-window.createPost=async function(){
-
-const file=document.getElementById("postImage").files[0];
-const caption=document.getElementById("captionInput").value.trim();
-const message=document.getElementById("postMessage");
-
-if(!file){
-
-message.innerText="📷 Önce bir fotoğraf seç.";
-return;
-
-}
-
-if(!auth.currentUser){
-
-message.innerText="Önce giriş yapmalısın.";
-return;
-
-}
-
-message.innerText="⏳ Fotoğraf hazırlanıyor...";
-
-try{
-
-const image=await compressImage(file);
-
-message.innerText="⏳ Paylaşılıyor...";
-
-await addDoc(collection(db,"posts"),{
-
-uid:auth.currentUser.uid,
-
-email:auth.currentUser.email,
-
-caption:caption,
-
-image:image,
-
-likes:0,
-
-createdAt:Date.now()
-
-});
-
-message.innerText="✅ Paylaşım yapıldı!";
-
-document.getElementById("postImage").value="";
-document.getElementById("captionInput").value="";
-document.getElementById("postPreview").innerHTML="";
-
-setTimeout(()=>{
-
-closeCreatePost();
-loadPosts();
-
-},700);
-
-}catch(error){
-
-console.error(error);
-
-message.innerText="❌ Paylaşım başarısız: "+error.message;
-
-}
-
-};
-
-
-/* PAYLAŞIMLARI GETİR */
-
-async function loadPosts(){
-
-const feed=document.getElementById("feed");
-
-try{
-
-const q=query(
-collection(db,"posts"),
-orderBy("createdAt","desc"),
-limit(30)
-);
-
-const snapshot=await getDocs(q);
-
-feed.innerHTML="";
-
-if(snapshot.empty){
-
-feed.innerHTML=
-`<div class="empty">Henüz paylaşım yok.<br>İlk paylaşımı sen yap! 📷</div>`;
-
-return;
-
-}
-
-snapshot.forEach(docSnap=>{
-
-const post=docSnap.data();
-
-const div=document.createElement("div");
-
-div.className="post";
-
-div.innerHTML=`
-
-<div class="post-header">
-
-<div class="avatar">👤</div>
-
-<div>
-<b>${escapeHtml(post.email||"Clipo Kullanıcısı")}</b>
-<br>
-<small>Clipo</small>
-</div>
-
-</div>
-
-<div class="video">
-<img src="${post.image}">
-</div>
-
-<div class="actions">
-
-<span class="action" onclick="likePost(this)">
-❤️
-</span>
-
-<span class="action" onclick="openProtected()">
-💬
-</span>
-
-<span class="action">
-↗️
-</span>
-
-<span class="action" style="margin-left:auto">
-🔖
-</span>
-
-</div>
-
-<div class="likes">
-<span class="like-count">${post.likes||0}</span> beğeni
-</div>
-
-<div class="caption">
-
-<b>${escapeHtml(post.email||"")}</b>
-<br>
-${escapeHtml(post.caption||"")}
-
-</div>
-
-`;
-
-feed.appendChild(div);
-
-});
-
-}catch(error){
-
-console.error(error);
-
-feed.innerHTML=
-`<div class="empty">Paylaşımlar yüklenemedi.</div>`;
-
-}
-
-}
-
-
-/* GÜVENLİ METİN */
-
-function escapeHtml(text){
-
-return String(text)
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-
-}
-
-
-/* BEĞENİ */
-
-window.likePost=function(button){
-
-button.classList.toggle("active");
-
-const post=button.closest(".post");
-const count=post.querySelector(".like-count");
-
-let number=parseInt(count.innerText)||0;
-
-number += button.classList.contains("active") ? 1 : -1;
-
-if(number<0)number=0;
-
-count.innerText=number;
-
-};
-
-</script>
-
-</body>
-</html>
+<div class="story" onclick="openProfileOrLogin()">
+<div class="
